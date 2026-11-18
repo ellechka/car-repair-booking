@@ -6,6 +6,10 @@
 }
 
 .menu-toggle {
+  position: fixed;
+  top: 14px;
+  left: 16px;
+  z-index: 60;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,13 +19,10 @@
   padding: 0 8px;
   border: 0;
   border-radius: 6px;
-  background: #356eb3;
+  background: var(--menu-blue);
   cursor: pointer;
-  position: fixed;
-  top: 14px;
-  left: 16px;
-  z-index: 60;
 }
+
 .menu-toggle span {
   display: block;
   height: 3px;
@@ -29,10 +30,15 @@
   background: #fff;
   transition: transform 0.2s, opacity 0.2s;
 }
+
 .menu-toggle[aria-expanded='true'] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
 .menu-toggle[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
 .menu-toggle[aria-expanded='true'] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-.menu-toggle:focus-visible { outline: 3px solid var(--menu-active); outline-offset: 2px; }
+
+.menu-toggle:focus-visible {
+  outline: 3px solid var(--menu-active);
+  outline-offset: 2px;
+}
 
 .menu-backdrop {
   position: fixed;
@@ -43,7 +49,11 @@
   transition: opacity 0.2s;
   z-index: 40;
 }
-.menu-backdrop.is-open { opacity: 1; pointer-events: auto; }
+
+.menu-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
 
 .menu-drawer {
   position: fixed;
@@ -58,13 +68,23 @@
   z-index: 50;
   overflow-y: auto;
 }
-.menu-drawer.is-open { transform: translateX(0); }
 
-.menu-drawer ul { list-style: none; margin: 0; padding: 0; }
+.menu-drawer.is-open {
+  transform: translateX(0);
+}
+
+.menu-drawer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-drawer li {
+  display: flex;
+}
 
 .menu-link {
   position: relative;
-  transition: background 0.15s, color 0.15s;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -77,9 +97,14 @@
   color: #1a1a1a;
   font: inherit;
   font-size: 1.5rem;
+  line-height: 1;
   text-align: left;
   cursor: pointer;
-  line-height: 1;
+  transition: background 0.15s, color 0.15s;
+}
+
+.menu-link span:not(.material-icons-round) {
+  flex: 1;
 }
 
 .menu-link:hover,
@@ -99,18 +124,23 @@
   background: var(--menu-blue);
 }
 
-.menu-link svg {
-  position: relative;
+.menu-link:focus-visible {
+  outline: 3px solid var(--menu-blue);
+  outline-offset: -3px;
+}
+
+.material-icons-round {
+  position: relative; 
   top: 2px;
-  display: block;
-  width: 28px;
-  height: 28px;
   flex: 0 0 28px;
+  font-size: 28px;
+  line-height: 1;
   color: var(--menu-blue);
 }
-.menu-link:hover { background: var(--menu-active); }
-.menu-link:focus-visible { outline: 3px solid var(--menu-blue); outline-offset: -3px; }
 
 @media (max-width: 480px) {
-  .menu-link { height: 72px; font-size: 1.25rem; }
+  .menu-link {
+    height: 72px;
+    font-size: 1.25rem;
+  }
 }
