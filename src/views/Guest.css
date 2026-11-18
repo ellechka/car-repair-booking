@@ -142,25 +142,8 @@ a {
   padding: 24px;
 }
 
-.guest-footer {
-  background: #356eb3;
-  color: white;
-  margin-top: 32px;
-  padding: 24px max(16px, calc((100% - 960px) / 2));
-}
-
-.guest-footer div {
-  display: flex;
-  flex-direction: column;
-  font-size: small;
-  gap: 3px;
-}
-
 @media (max-width: 650px) {
-  .guest-nav,
-  .guest-nav nav,
-  .account-callout,
-  .guest-footer {
+  .account-callout {
     align-items: flex-start;
     flex-direction: column;
     gap: 16px;

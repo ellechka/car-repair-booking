@@ -1,6 +1,5 @@
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 import './Guest.css';
-import MenuDrawer from '../components/MenuDrawer/MenuDrawer.jsx';
 
 const repairs = [
   {name: 'Oil change', price: 'from 89 €', duration: 'approx. 1 h'},
@@ -22,15 +21,6 @@ const steps = [
 
 const Guest = () => (
   <div className="guest-page">
-    <header className="guest-nav">
-      <Link className="guest-brand" to="/">Autokorjaamo</Link>
-      <nav aria-label="Account navigation">
-        <Link className="button button-quiet" to="/login">Log in</Link>
-        <Link className="button button-light" to="/signup">Sign up</Link>
-      </nav>
-      <MenuDrawer />
-    </header>
-
     <main>
       <section className="guest-hero">
         <p className="eyebrow">Reliable care for every journey</p>
@@ -100,16 +90,6 @@ const Guest = () => (
       </section>
     </main>
 
-    <footer className="guest-footer">
-      <div>
-        <strong>Autokorjaamo</strong>
-        <span>Address, Phone, email@example.com</span>
-      </div>
-      <div>
-        <span>Opening hours: Mon–Fri 8–20</span>
-        <span>© 2026 Autokorjaamo</span>
-      </div>
-    </footer>
   </div>
 );
 
