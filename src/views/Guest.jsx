@@ -1,5 +1,6 @@
 import {Link} from 'react-router';
 import './Guest.css';
+import MenuDrawer from '../components/MenuDrawer/MenuDrawer.jsx';
 
 const repairs = [
   {name: 'Oil change', price: 'from 89 €', duration: 'approx. 1 h'},
@@ -27,6 +28,7 @@ const Guest = () => (
         <Link className="button button-quiet" to="/login">Log in</Link>
         <Link className="button button-light" to="/signup">Sign up</Link>
       </nav>
+      <MenuDrawer />
     </header>
 
     <main>
