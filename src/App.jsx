@@ -5,6 +5,7 @@ import Profile from './views/Profile';
 import Upload from './views/Upload';
 import Single from './views/Single';
 import Guest from './views/Guest';
+import LoginPage from "./views/LoginPage";
 
 const App = () => {
 
@@ -18,6 +19,7 @@ const App = () => {
            <Route path="/profile" element={<Profile />} />
            <Route path="/upload" element={<Upload />} />
            <Route path="/single" element={<Single />} />
+            <Route path="/login" element={<LoginPage />} />
          </Route>
        </Routes>
      </BrowserRouter>
