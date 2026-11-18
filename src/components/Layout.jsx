@@ -1,33 +1,48 @@
-import {Link, Outlet} from 'react-router';
+import { Link, Outlet, useNavigate } from "react-router";
+import MenuDrawer from "./MenuDrawer/MenuDrawer.jsx";
+import { useAuth } from "../AuthContext";
+import "./Layout.css";
 
-const Layout = () => {
+export default function Layout() {
+  const navigate = useNavigate();
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
+
+  function handleLogout() {
+    setIsAuthenticated(false);
+    navigate("/");
+  }
+
   return (
-    <>
-      <header>
-        <h1>My super media app</h1>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-            <li>
-              <Link to="/upload">Upload</Link>
-            </li>
-            <li>
-              <Link to="/egor">Egor</Link>
-            </li>
-          </ul>
+    <div className="site-layout">
+      <header className="site-nav">
+        <Link className="site-brand" to="/">Autokorjaamo</Link>
+        <nav className="site-page-nav" aria-label="Main navigation">
+          <Link to="/">Home</Link>
+          {isAuthenticated && <Link to="/upload">Upload</Link>}
+          {isAuthenticated && <Link to="/profile">Profile</Link>}
         </nav>
+        <nav className="site-account-nav" aria-label="Account navigation">
+          {isAuthenticated ? (
+            <button type="button" onClick={handleLogout}>Log out</button>
+          ) : (
+            <Link to="/login">Log in/Register</Link>
+          )}
+        </nav>
+        <MenuDrawer />
       </header>
-      <main>
+      <div className="site-content">
         <Outlet />
-      </main>
-      <footer><p>&copy; teacher 2026</p></footer>
-    </>
+      </div>
+      <footer className="site-footer">
+        <div>
+          <strong>Autokorjaamo</strong>
+          <span>Address, Phone, email@example.com</span>
+        </div>
+        <div>
+          <span>Opening hours: Mon–Fri 8–20</span>
+          <span>© 2026 Autokorjaamo</span>
+        </div>
+      </footer>
+    </div>
   );
-};
-
-export default Layout;
+}
