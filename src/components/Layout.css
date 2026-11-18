@@ -65,13 +65,6 @@
   text-decoration: none;
 }
 
-.site-nav .menu-toggle {
-  flex: 0 0 auto;
-  position: relative;
-  top: auto;
-  left: auto;
-}
-
 .site-footer {
   background: #356eb3;
   color: #fff;

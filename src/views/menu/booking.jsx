@@ -1,0 +1,7 @@
+const Booking = () => (
+    <main>
+      <h1>Booking</h1>
+    </main>
+);
+
+export default Booking;
