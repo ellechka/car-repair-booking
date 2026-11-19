@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+
 import './MenuDrawer.css';
 
 // Menu entries. add routing later
 const ITEMS = [
-  { label: 'Booking', icon: 'assignment' },
-  { label: 'Services', icon: 'car_repair' },
-  { label: 'Price list', icon: 'list_alt' },
-  { label: 'Shop', icon: 'shopping_cart' },
-  { label: 'FAQ', icon: 'help_outline' },
-  { label: 'Contact', icon: 'quick_contacts_dialer' },
+  { label: 'Booking', icon: 'assignment', to: '/booking' },
+  { label: 'Services', icon: 'car_repair', to: '/services' },
+  { label: 'Price list', icon: 'list_alt', to: '/price-list' },
+  { label: 'Shop', icon: 'shopping_cart', to: '/shop' },
+  { label: 'FAQ', icon: 'help_outline', to: '/faq' },
+  { label: 'Contact', icon: 'quick_contacts_dialer', to: '/contact' },
 ];
 
 const MenuDrawer = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!open) return;
@@ -47,12 +50,16 @@ const MenuDrawer = () => {
         aria-hidden={!open}
       >
         <ul>
-          {ITEMS.map(({ label, icon }) => (
+          {ITEMS.map(({ label, icon, to }) => (
             <li key={label}>
               <button
                 type="button"
                 className="menu-link"
                 tabIndex={open ? 0 : -1}
+                onClick={() => {
+                  navigate(to);
+                  setOpen(false);
+                }}
               >
                 <span className="material-icons-round" aria-hidden="true">
                   {icon}

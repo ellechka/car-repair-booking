@@ -8,6 +8,12 @@ import Upload from './views/Upload';
 import Single from './views/Single';
 import Guest from './views/Guest';
 import LoginPage from "./views/LoginPage";
+import Booking from './views/menu/booking';
+import Services from './views/menu/services';
+import PriceList from './views/menu/pricelist';
+import Shop from './views/menu/shop';
+import FAQ from './views/menu/faq';
+import Contact from './views/menu/contact'; 
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -30,6 +36,12 @@ const App = () => {
              />
              <Route path="/single" element={<Single />} />
              <Route path="/login" element={<LoginPage />} />
+             <Route path="/booking" element={<Booking />} />
+             <Route path="/services" element={<Services />} />
+             <Route path="/price-list" element={<PriceList />} />
+             <Route path="/shop" element={<Shop />} />
+             <Route path="/faq" element={<FAQ />} />
+             <Route path="/contact" element={<Contact />} />
            </Route>
          </Routes>
        </AuthContext.Provider>

@@ -1,9 +1,7 @@
-const PriceList = () => (
-  <div className="guest-page">
+const Booking = () => (
     <main>
-      <h1>Price list</h1>
+      <h1>Work in progress</h1>
     </main>
-  </div>
 );
 
-export default PriceList;
+export default Booking;
