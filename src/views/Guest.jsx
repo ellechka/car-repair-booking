@@ -1,5 +1,9 @@
 import { Link } from 'react-router';
+import GarageMap from '../components/GarageMap';
 import './Guest.css';
+
+// TODO: replace with the garage's real address
+const address = 'Mannerheimintie 1, Helsinki';
 
 const repairs = [
   {name: 'Oil change', price: 'from 89 €', duration: 'approx. 1 h'},
@@ -87,6 +91,13 @@ const Guest = () => (
           <div><strong>Certified mechanics</strong><span>Experienced staff trained on all major brands.</span></div>
           <div><strong>Clear pricing</strong><span>You see the price before you book. No surprises.</span></div>
         </div>
+      </section>
+
+      <section className="find-section" id="find-us" aria-labelledby="find-title">
+        <p className="eyebrow">Visit the garage</p>
+        <h2 id="find-title">Find us</h2>
+        <p className="find-address">{address}</p>
+        <GarageMap address={address} />
       </section>
     </main>
 
