@@ -91,7 +91,8 @@ a {
 
 .repair-section,
 .how-section,
-.trust-section {
+.trust-section,
+.find-section {
   padding: 48px 0;
 }
 
@@ -127,7 +128,8 @@ a {
 }
 
 .how-section,
-.trust-section {
+.trust-section,
+.find-section {
   text-align: center;
 }
 
@@ -135,6 +137,17 @@ a {
   color: #356eb3;
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+.find-address {
+  color: #666;
+}
+
+.garage-map {
+  border: 0;
+  display: block;
+  height: 350px;
+  width: 100%;
 }
 
 .account-callout {
@@ -151,6 +164,10 @@ a {
 
   .guest-hero {
     padding: 56px 0;
+  }
+
+  .garage-map {
+    height: 260px;
   }
 
   .repair-grid,
