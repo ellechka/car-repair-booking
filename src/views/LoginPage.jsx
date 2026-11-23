@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { useAuth } from "../AuthContext";
+import { employeeAccount } from "./Employee";
 import "./Login.css";
 
 const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const LoginPage = () => {
-    const { setIsAuthenticated } = useAuth();
+    const { setIsAuthenticated, setUserRole } = useAuth();
+    const navigate = useNavigate();
     const [login, setLogin] = useState({ email: "", password: "" });
     const [register, setRegister] = useState({
         name: "",
@@ -23,7 +26,7 @@ const LoginPage = () => {
     function handleLoginChange(event) {
         const { name, value } = event.target;
         setLogin((current) => ({ ...current, [name]: value }));
-        setLoginErrors((current) => ({ ...current, [name]: ""}));
+        setLoginErrors((current) => ({ ...current, [name]: "", credentials: "" }));
         setLoginMessage("");
     }
 
@@ -51,8 +54,23 @@ const LoginPage = () => {
 
         setLoginErrors(nextErrors);
         if (Object.keys(nextErrors).length === 0) {
+            const email = login.email.trim().toLowerCase();
+            const employeeEmail = employeeAccount.email.toLowerCase();
+
+            if (email === employeeEmail && login.password !== employeeAccount.password) {
+                setLoginErrors({ credentials: "Email or password is incorrect" });
+                setLoginMessage("");
+                return;
+            }
+
             setIsAuthenticated(true);
-            setLoginMessage("Demo login complete. Authentication is not connected to a server.");
+            if (email === employeeEmail) {
+                setUserRole(employeeAccount.role);
+                navigate("/employee");
+            } else {
+                setUserRole("customer");
+                setLoginMessage("Demo login complete. Authentication is not connected to a server.");
+            }
         } else {
             setLoginMessage("");
         }
@@ -89,6 +107,7 @@ const LoginPage = () => {
         setRegisterErrors(nextErrors);
         if (Object.keys(nextErrors).length === 0) {
             setIsAuthenticated(true);
+            setUserRole("customer");
             setRegisterMessage("Demo registration complete. Authentication is not connected to a server.");
         } else {
             setRegisterMessage("");
@@ -102,6 +121,9 @@ const LoginPage = () => {
                     <section className="login-card" aria-labelledby="login-title">
                         <h1 id="login-title">Log in</h1>
                         <h2>Customers and employees log in here.</h2>
+                        <p>
+                            Employee demo: {employeeAccount.email} / {employeeAccount.password}
+                        </p>
 
                         <form onSubmit={handleLoginSubmit} noValidate>
                             <div className="form-field">
@@ -136,6 +158,9 @@ const LoginPage = () => {
 
                             {loginMessage && (
                                 <p className="form-message" role="status">{loginMessage}</p>
+                            )}
+                            {loginErrors.credentials && (
+                                <p className="field-error" role="alert">{loginErrors.credentials}</p>
                             )}
                         </form>
                     </section>
