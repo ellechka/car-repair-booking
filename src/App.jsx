@@ -1,6 +1,7 @@
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router';
 import { useState } from 'react';
 import { AuthContext } from './AuthContext';
+import Employee from './views/Employee';
 import Home from './views/Home';
 import Layout from './components/Layout';
 import Profile from './views/Profile';
@@ -17,10 +18,11 @@ import Contact from './views/menu/contact';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userRole, setUserRole] = useState(null);
 
   return (
      <BrowserRouter>
-       <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+       <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, userRole, setUserRole }}>
          <Routes>
            <Route element={<Layout />}>
              <Route path="/" element={<Guest />} />
@@ -33,6 +35,12 @@ const App = () => {
              <Route
                path="/upload"
                element={isAuthenticated ? <Upload /> : <Navigate to="/login" replace />}
+             />
+             <Route
+               path="/employee"
+               element={isAuthenticated && userRole === 'employee'
+                 ? <Employee />
+                 : <Navigate to="/login" replace />}
              />
              <Route path="/single" element={<Single />} />
              <Route path="/login" element={<LoginPage />} />
