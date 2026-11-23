@@ -25,16 +25,15 @@ const steps = [
 
 const Guest = () => (
   <div className="guest-page">
-    <main>
-      <section className="guest-hero">
+    <section className="guest-hero">
         <p className="eyebrow">Reliable care for every journey</p>
         <h1>Car repairs and maintenance, booked online</h1>
         <p>Pick a repair, choose a time and bring your car in. Prices shown upfront.</p>
         <a className="button button-primary" href="#repairs">Book a repair <span aria-hidden="true">→</span></a>
         <a className="hero-note" href="#how-it-works">Can't find your repair? Send us an enquiry</a>
       </section>
-
-      <section className="repair-section" id="repairs" aria-labelledby="repairs-title">
+    <main>
+    <section className="repair-section" id="repairs" aria-labelledby="repairs-title">
         <div className="section-heading">
           <div>
             <p className="eyebrow">Our services</p>

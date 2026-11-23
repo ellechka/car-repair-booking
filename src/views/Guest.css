@@ -17,7 +17,7 @@ a {
 .guest-nav,
 .guest-page main {
   margin: auto;
-  max-width: 960px;
+  max-width: 1200px;
   width: calc(100% - 32px);
 }
 
@@ -65,7 +65,10 @@ a {
 }
 
 .guest-hero {
-  padding: 80px 0;
+  background: linear-gradient(rgb(23 32 51 / 70%), rgb(53 110 179 / 55%)),
+    url("../assets/guest_garage.jpg") center / cover;  
+  color: #fff;
+  padding: 96px 16px;
   text-align: center;
 }
 
@@ -74,8 +77,8 @@ a {
   max-width: 600px;
 }
 
-.guest-hero p:not(.eyebrow) {
-  color: #666;
+.guest-hero p:not(.eyebrow), .guest-hero .eyebrow, .guest-hero .hero-note {
+  color: #e8eef6;
 }
 
 .eyebrow {
@@ -163,7 +166,7 @@ a {
   }
 
   .guest-hero {
-    padding: 56px 0;
+    padding: 56px 16px;
   }
 
   .garage-map {
