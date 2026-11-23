@@ -16,6 +16,15 @@
   flex: 1;
 }
 
+.employee-content {
+  display: flex;
+  min-height: 0;
+}
+
+.employee-layout .site-footer {
+  margin-top: 0;
+}
+
 .site-nav {
   justify-content: space-between;
   margin: 0 auto;
