@@ -1,0 +1,50 @@
+.employee-page {
+  flex: 1;
+  margin: 0 auto;
+  max-width: 1200px;
+  min-height: 0;
+  padding: 8px 16px 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.employee-page h1 {
+  font-size: 1.67rem;
+  margin: 0 0 12px;
+}
+
+.employee-welcome {
+  margin-bottom: 24px;
+}
+
+.employee-work-list {
+  display: grid;
+  flex: 1 1 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: minmax(0, 1fr);
+  gap: 20px;
+}
+
+.employee-work-card {
+  border: 1px solid #e1e6ed;
+  border-radius: 8px;
+  background: #d9d9d9;
+  box-shadow: 0 8px 24px rgb(23 32 51 / 8%);
+  min-height: 0;
+  padding: 20px;
+}
+
+.employee-work-card h2 {
+  margin: 0 0 16px;
+  text-transform: capitalize;
+}
+
+.employee-work-card p {
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .employee-work-list {
+    grid-template-columns: 1fr;
+  }
+}
