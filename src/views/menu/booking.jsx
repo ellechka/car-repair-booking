@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useCart } from '../../CartContext';
-import { services } from '../../data/services';
+import {useState} from 'react';
+import {useCart} from '../../CartContext';
+import {services} from '../../data/services';
 import './Booking.css';
 
 const formatPrice = (cents) => `${(cents / 100).toFixed(2)} €`;
@@ -13,7 +13,7 @@ const getToday = () => {
 };
 
 const Booking = () => {
-  const { items, addItems } = useCart();
+  const {items, addItems} = useCart();
 
   const [serviceId, setServiceId] = useState('');
   const [carModel, setCarModel] = useState('');
@@ -39,7 +39,9 @@ const Booking = () => {
         notes: notes.trim(),
       },
     ]);
-    setMessage(`${service.name} added to cart (${items.length + 1} items in cart)`);
+    setMessage(
+      `${service.name} added to cart (${items.length + 1} items in cart)`
+    );
 
     // Keep car and date so the user can quickly add more for the same car.
     setServiceId('');
@@ -63,7 +65,8 @@ const Booking = () => {
             </option>
             {services.map((s) => (
               <option key={s.id} value={s.id}>
-                {s.name} — {formatPrice(s.price_cents)} · {s.duration_minutes} min
+                {s.name} — {formatPrice(s.price_cents)} · {s.duration_minutes}{' '}
+                min
               </option>
             ))}
           </select>
