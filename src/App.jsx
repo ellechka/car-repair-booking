@@ -1,6 +1,7 @@
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router';
 import { useState } from 'react';
 import { AuthContext } from './AuthContext';
+import CartProvider from './CartProvider';
 import Employee from './views/Employee';
 import Home from './views/Home';
 import Layout from './components/Layout';
@@ -23,6 +24,7 @@ const App = () => {
   return (
      <BrowserRouter>
        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, userRole, setUserRole }}>
+        <CartProvider>
          <Routes>
            <Route element={<Layout />}>
              <Route path="/" element={<Guest />} />
@@ -52,6 +54,7 @@ const App = () => {
              <Route path="/contact" element={<Contact />} />
            </Route>
          </Routes>
+        </CartProvider>
        </AuthContext.Provider>
      </BrowserRouter>
   );
