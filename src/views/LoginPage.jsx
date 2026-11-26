@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../AuthContext";
-import { employeeAccount } from "./Employee";
+/* import { employeeAccount } from "./Employee"; */
+import { useAuthentication, useUser } from "../hooks/apiHooks";
 import "./Login.css";
 
 const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const LoginPage = () => {
     const { setIsAuthenticated, setUserRole } = useAuth();
+    const { postLogin } = useAuthentication();
+    const { postUser } = useUser();
     const navigate = useNavigate();
     const [login, setLogin] = useState({ email: "", password: "" });
     const [register, setRegister] = useState({
@@ -33,11 +36,18 @@ const LoginPage = () => {
     function handleRegisterChange(event) {
         const { name, value } = event.target;
         setRegister((current) => ({ ...current, [name]: value }));
-        setRegisterErrors((current) => ({ ...current, [name]: ""}));
+        setRegisterErrors((current) => ({ ...current, [name]: "" }));
         setRegisterMessage("");
     }
 
-    function handleLoginSubmit(event) {
+    async function logIn(email, password) {
+        const loginResult = await postLogin({ email, password });
+        setIsAuthenticated(true);
+        setUserRole(loginResult.user.role);
+        navigate(loginResult.user.role === "employee" ? "/employee" : "/profile");
+    }
+
+    async function handleLoginSubmit(event) {
         event.preventDefault();
 
         const nextErrors = {};
@@ -54,29 +64,18 @@ const LoginPage = () => {
 
         setLoginErrors(nextErrors);
         if (Object.keys(nextErrors).length === 0) {
-            const email = login.email.trim().toLowerCase();
-            const employeeEmail = employeeAccount.email.toLowerCase();
-
-            if (email === employeeEmail && login.password !== employeeAccount.password) {
-                setLoginErrors({ credentials: "Email or password is incorrect" });
+            try {
+                await logIn(login.email, login.password);
+            } catch (error) {
+                setLoginErrors({ credentials: error.message });
                 setLoginMessage("");
-                return;
-            }
-
-            setIsAuthenticated(true);
-            if (email === employeeEmail) {
-                setUserRole(employeeAccount.role);
-                navigate("/employee");
-            } else {
-                setUserRole("customer");
-                setLoginMessage("Demo login complete. Authentication is not connected to a server.");
             }
         } else {
             setLoginMessage("");
         }
     }
 
-    function handleRegisterSubmit(event) {
+    async function handleRegisterSubmit(event) {
         event.preventDefault();
 
         const nextErrors = {};
@@ -106,9 +105,17 @@ const LoginPage = () => {
 
         setRegisterErrors(nextErrors);
         if (Object.keys(nextErrors).length === 0) {
-            setIsAuthenticated(true);
-            setUserRole("customer");
-            setRegisterMessage("Demo registration complete. Authentication is not connected to a server.");
+            try {
+                await postUser({
+                    name: register.name,
+                    email: register.email,
+                    phone: register.phone,
+                    password: register.password,
+                });
+                await logIn(register.email, register.password);
+            } catch (error) {
+                setRegisterMessage(error.message);
+            }
         } else {
             setRegisterMessage("");
         }
@@ -121,20 +128,20 @@ const LoginPage = () => {
                     <section className="login-card" aria-labelledby="login-title">
                         <h1 id="login-title">Log in</h1>
                         <h2>Customers and employees log in here.</h2>
-                        <p>
+                        {/* <p>
                             Employee demo: {employeeAccount.email} / {employeeAccount.password}
-                        </p>
+                        </p> */}
 
                         <form onSubmit={handleLoginSubmit} noValidate>
                             <div className="form-field">
                                 <label htmlFor="login-email">Email</label>
                                 <input id="login-email"
-                                       name="email"
-                                       type="email"
-                                       autoComplete="email"
-                                       value={login.email}
-                                       onChange={handleLoginChange}
-                                       aria-invalid={Boolean(loginErrors.email)} />
+                                    name="email"
+                                    type="email"
+                                    autoComplete="email"
+                                    value={login.email}
+                                    onChange={handleLoginChange}
+                                    aria-invalid={Boolean(loginErrors.email)} />
                                 {loginErrors.email && (
                                     <span className="field-error">{loginErrors.email}</span>
                                 )}
@@ -143,12 +150,12 @@ const LoginPage = () => {
                             <div className="form-field">
                                 <label htmlFor="login-password">Password</label>
                                 <input id="login-password"
-                                       name="password"
-                                       type="password"
-                                       autoComplete="current-password"
-                                       value={login.password}
-                                       onChange={handleLoginChange}
-                                       aria-invalid={Boolean(loginErrors.password)} />
+                                    name="password"
+                                    type="password"
+                                    autoComplete="current-password"
+                                    value={login.password}
+                                    onChange={handleLoginChange}
+                                    aria-invalid={Boolean(loginErrors.password)} />
                                 {loginErrors.password && (
                                     <span className="field-error">{loginErrors.password}</span>
                                 )}

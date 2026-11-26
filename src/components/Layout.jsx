@@ -10,6 +10,7 @@ export default function Layout() {
   const isEmployeePage = pathname === "/employee";
 
   function handleLogout() {
+    localStorage.removeItem("token");
     setIsAuthenticated(false);
     setUserRole(null);
     navigate("/");
